@@ -13,7 +13,7 @@ const platformRoutes = require("./routes/platformRoutes");
 
 // swagger setup can be added here
 const swaggerUi = require("swagger-ui-express");
-const swagger = require("../swagger.json");
+const swagger = require("./swagger.json");
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swagger));
 app.use(express.json());
 app.use(cors());
