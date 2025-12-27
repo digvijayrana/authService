@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
 
     const user = rows[0];
 
-    const ok = await bcrypt.compare(password, user.password_hash);
+    const ok = await bcrypt.compare(password, user?.password_hash);
     if (!ok)
       return error(res, 401, "INVALID_PASSWORD", "Incorrect email or password");
 

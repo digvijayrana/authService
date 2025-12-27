@@ -39,8 +39,6 @@ Thumbs.db
 .tmp/
 *.tmp
 
-# Swagger Generated
-swagger.json
 
 # Docker
 docker-data/
