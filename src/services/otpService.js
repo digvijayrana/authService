@@ -155,7 +155,7 @@ exports.passwordOtpVerify = async (req, res) => {
     );
 
     await pool.query(
-      "UPDATE tenant_password_otps SET used_at=NOW() WHERE id=$1",
+      "UPDATE tenant_password_otps SET used_at=NOW() WHERE user_id=$1",
       [rows[0].id]
     );
 

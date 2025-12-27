@@ -6,7 +6,7 @@ const logger = require("../logger")(__filename);
 exports.createTenant = async (req, res) => {
   try {
     // --------------- AUTHORIZATION ----------------
-    if (!req.user || !req.user.roles || !req.user.roles.includes("SUPER_ADMIN")) {
+    if (!req.user || !req.user.roles || !req.user.roles.includes("super_admin")) {
       logger.warn("FORBIDDEN: Non super admin tried to create tenant");
       return res.status(403).json({
         success: false,
