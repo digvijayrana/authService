@@ -1,0 +1,279 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "VidyarthiLekha Authentication Service",
+    "description": "Authentication, OTP, Super Admin & Tenant Platform APIs",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Server"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Tenant Login",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              },
+              "example": {
+                "email": "tenant@gmail.com",
+                "password": "Strong@123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login Success" }
+        }
+      }
+    },
+
+    "/auth/forgot-password": {
+      "post": {
+        "summary": "Forgot Password - Email Token",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email"],
+                "properties": { "email": { "type": "string" } }
+              },
+              "example": { "email": "tenant@gmail.com" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Reset Email Sent" }
+        }
+      }
+    },
+
+    "/auth/reset-password": {
+      "post": {
+        "summary": "Reset password using email token",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["token", "newPassword"],
+                "properties": {
+                  "token": { "type": "string" },
+                  "newPassword": { "type": "string" }
+                }
+              },
+              "example": {
+                "token": "abc123",
+                "newPassword": "NewStrong@123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Password reset success" }
+        }
+      }
+    },
+
+    "/auth/set-password": {
+      "post": {
+        "summary": "Set first time password (Invite)",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["token", "newPassword"],
+                "properties": {
+                  "token": { "type": "string" },
+                  "newPassword": { "type": "string" }
+                }
+              },
+              "example": {
+                "token": "invite-123",
+                "newPassword": "Strong@123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Password Set Success" }
+        }
+      }
+    },
+
+    "/auth/mobile/verify/request": {
+      "post": {
+        "summary": "Request OTP for mobile verification",
+        "tags": ["Mobile Verification"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": { "mobile": "+919999999999" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OTP Sent" }
+        }
+      }
+    },
+
+    "/auth/mobile/verify/confirm": {
+      "post": {
+        "summary": "Verify mobile OTP",
+        "tags": ["Mobile Verification"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "mobile": "+919999999999",
+                "otp": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Mobile Verified" }
+        }
+      }
+    },
+
+    "/auth/password/otp/request": {
+      "post": {
+        "summary": "Request OTP for password reset using mobile",
+        "tags": ["Password OTP"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": { "mobile": "+919999999999" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OTP Sent" }
+        }
+      }
+    },
+
+    "/auth/password/otp/verify": {
+      "post": {
+        "summary": "Verify OTP & Reset Password",
+        "tags": ["Password OTP"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "mobile": "+919999999999",
+                "otp": "123456",
+                "newPassword": "Strong@123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Password Reset Success" }
+        }
+      }
+    },
+
+    "/auth/super-admin/otp/request": {
+      "post": {
+        "summary": "Request OTP for SUPER ADMIN Login",
+        "tags": ["Super Admin"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": { "mobile": "+919111111111" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OTP Sent" }
+        }
+      }
+    },
+
+    "/auth/super-admin/otp/verify": {
+      "post": {
+        "summary": "Verify SUPER ADMIN OTP Login",
+        "tags": ["Super Admin"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "mobile": "+919111111111",
+                "otp": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login Success" }
+        }
+      }
+    },
+
+    "/platform/tenants": {
+      "post": {
+        "summary": "Create Tenant",
+        "tags": ["Platform"],
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "tenantName": "Delhi Public School",
+                "adminFullName": "DPS Admin",
+                "adminEmail": "admin@dps.com",
+                "adminMobile": "+918604828396"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Tenant Created" }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
