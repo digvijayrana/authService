@@ -46,7 +46,7 @@ describe("PLATFORM SERVICE - CREATE TENANT HIGH COVERAGE", () => {
 
   // ----------- 2️⃣ Validation Failed -----------
   test("Should fail validation when fields missing", async () => {
-    const req = { user: { roles: ["SUPER_ADMIN"] }, body: {} };
+    const req = { user: { roles: ["super_admin"] }, body: {} };
     const res = mockRes();
 
     await platformService.createTenant(req, res);
@@ -65,7 +65,7 @@ describe("PLATFORM SERVICE - CREATE TENANT HIGH COVERAGE", () => {
       .mockResolvedValueOnce({}); // COMMIT
 
     const req = {
-      user: { roles: ["SUPER_ADMIN"] },
+      user: { roles: ["super_admin"] },
       body: {
         tenantName: "DPS",
         adminFullName: "Admin",
@@ -88,7 +88,7 @@ describe("PLATFORM SERVICE - CREATE TENANT HIGH COVERAGE", () => {
     pool.query.mockRejectedValueOnce({ code: "23505" });
 
     const req = {
-      user: { roles: ["SUPER_ADMIN"] },
+      user: { roles: ["super_admin"] },
       body: {
         tenantName: "DPS",
         adminFullName: "Admin",
@@ -112,7 +112,7 @@ describe("PLATFORM SERVICE - CREATE TENANT HIGH COVERAGE", () => {
       .mockRejectedValueOnce(new Error("DB crash")); // first insert fails
 
     const req = {
-      user: { roles: ["SUPER_ADMIN"] },
+      user: { roles: ["super_admin"] },
       body: {
         tenantName: "DPS",
         adminFullName: "Admin",
